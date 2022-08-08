@@ -1,5 +1,5 @@
 #research area
-#timers - https://www.geeksforgeeks.org/how-to-create-a-countdown-timer-using-python/
+#timers -
 # https://www.udacity.com/blog/2021/09/create-a-timer-in-python-step-by-step-guide.html
 #
 #
@@ -15,18 +15,22 @@
 
 import random
 import time
-countdown = random.randint(1,5)
+#countdown = random.randint(1,5)
 lightcolour = 1
+
 def lightprocess():
+    global lightcolour
     lightcolour += 1
-    time.sleep(countdown)
+    time.sleep(random.randint(1,5))
+    RLGL()
+
+def RLGL():
+    if (lightcolour % 2) == 0: 
+        print("red light") 
+        lightprocess()
+    else:
+        print ("green light")
+        lightprocess()
 
 
-while (lightcolour % 2) == 0: 
-    print("The number is even") 
-    lightprocess
-
-while (lightcolour % 2) != 0: 
-    print ("The provided number is odd")
-    lightprocess
-
+RLGL()
