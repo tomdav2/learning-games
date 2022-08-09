@@ -34,6 +34,7 @@ def RLGL():
         print(LINE_CLEAR, end='\r')
         print ("green light", end='\r')
         lightprocess()
+        
 
 
 RLGL()
