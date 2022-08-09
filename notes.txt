@@ -1,0 +1,10 @@
+red light
+wjfijwoijfaowiajfowiajfwoa (finishing line)
+user input
+
+while steps = <20 RLGL
+else = winner!
+if input on redlight = kill (restart)
+
+red light does allow input but you die
+green light allows you to type what you see
