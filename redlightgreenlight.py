@@ -15,6 +15,7 @@
 import random
 import time
 lightcolour = 1
+LINE_CLEAR = '\x1b[2K' # <-- ANSI sequence
 
 #declares lightcolour globally, plus 1 to make it change colour, timesleep makes it wait a random amount of time RLGL produces redlight or greenlight response
 def lightprocess():
@@ -26,10 +27,12 @@ def lightprocess():
 #if the lightcolour is even print red light, if not then print green
 def RLGL():
     if (lightcolour % 2) == 0: 
-        print("red light   ", end='\r') 
+        print(LINE_CLEAR, end='\r')
+        print("red light", end='\r') 
         lightprocess()
     else:
-        print ("green light   ", end='\r')
+        print(LINE_CLEAR, end='\r')
+        print ("green light", end='\r')
         lightprocess()
 
 
