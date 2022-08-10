@@ -12,32 +12,22 @@
 # every 5 to 10 seconds you have to type a randomly generated centance if you're unable to you get killed
 #Chantal_the_Doll
 
-
-# pip install keyboard
-import keyboard
 import random
 import time
-lightcolour = 1
+import random
+
+
 LINE_CLEAR = '\x1b[2K' # <-- ANSI sequence to clear that line
 PREVLINE = '\033[F' # this should go to the start of the previous line
+STEPS = 10
+REDLIGHT = "red light"
+GREENLIGHT = "green light"
 
 
-#declares lightcolour globally, plus 1 to make it change colour, timesleep makes it wait a random amount of time RLGL produces redlight or greenlight response
-def lightprocess():
-    global lightcolour
-    lightcolour += 1
-    time.sleep(random.randint(1,5))
-    RLGL()
-
-
-#if the lightcolour is even print red light, if not then print green
-def RLGL():
-    if (lightcolour % 2) == 0: 
-        print(PREVLINE, LINE_CLEAR + "red light", end='\n')
-        lightprocess()
+while STEPS <20:
+    LIGHTCHANGEINT = (random.randint(1,6))
+    time.sleep(LIGHTCHANGEINT)
+    if (LIGHTCHANGEINT % 2) == 0:
+        print(LINE_CLEAR, REDLIGHT, end='\r')
     else:
-        print(PREVLINE, LINE_CLEAR + "green light", end='\n')
-        lightprocess()
-
-RLGL()
-
+        print(LINE_CLEAR, GREENLIGHT, end='\r')
