@@ -18,11 +18,17 @@ import keyboard
 
 global steps
 
+
+
+
 def lightChange():
-    global lightStatus
     global kill
+    global lightStatus
     kill = ('')
-    while kill != True:
+
+    while kill is True:
+        dead()
+    else:
         print("green light")
         lightStatus = True
         time.sleep(random.randint(1,6))
@@ -31,8 +37,6 @@ def lightChange():
         lightStatus = False
         time.sleep(random.randint(1,6))
         kill = keyboard.stop_recording()
-    else:
-        dead()
 
 def squidGame():
     global run
@@ -50,7 +54,6 @@ def squidGame():
             dead() #fall
 
 def dead():
-    thread1.join(thread2)
     print("KILLED")
     print(steps)
 
