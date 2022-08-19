@@ -17,10 +17,12 @@ import string
 #
 #Chantal_the_Doll
 
-
+letters = string.ascii_letters
 LINE_FLUSH = '\r\033[K' # flushes previous print
 LINE_CLEAR = '\x1b[2K' # <-- ANSI sequence to clear that line
 PREVLINE = '\033[F' # this should go to the start of the previous line
+
+
 steps = 0
 redLight = "red light"
 greenLight = "green light"
@@ -28,15 +30,17 @@ greenLight = "green light"
 
 while steps <20:
     lightChangeInt = (random.randint(1,6))
+#timing
     time.sleep(lightChangeInt)
+#RedLight - if you type during this you die
     if (lightChangeInt % 2) == 0:
-        #RedLight - if you type during this you die
         print(redLight)
-        if keyboard.is_pressed("*"):
+        if keyboard._KeyboardListener(string.ascii_letters):
             print("KILLED")
             print(steps)
+            break
     else:
-        #GreenLight - enable typing and random typing sequence
+#GreenLight - enable typing and random typing sequence
         print(greenLight)
         run = ''.join(random.choice(string.ascii_letters) for i in range (random.randint(1,6)))
         print(run)
@@ -45,10 +49,7 @@ while steps <20:
             steps += 1
             print(steps)
         else:
+            #change this to fall over press escape to stand up
             print("KILLED")
             print(steps)
-
-
-
-print("you've finished")
-
+            break
