@@ -1,50 +1,60 @@
-#start at the start
-#red light/green light
-#generate random letter
-#print letter
-
-#says red light (0)
-#waits for random time
-#moves to green light (1)
-
 #research#
 #https://stackoverflow.com/questions/18773474/simple-way-to-run-two-while-loops-at-the-same-time-using-threading
+# threading info https://www.pythontutorial.net/python-concurrency/python-threading/ 
+
 
 import threading
 import time
 import random
 import string
 import keyboard
+import sys
 
-global steps
+
+steps = int()
+kill = (False)
+lightNum = (False)
 
 
+def dead():
+    print("KILLED")
+    sys.exit()
 
 
 def lightChange():
-    global kill
-    global lightStatus
-    kill = ('')
-
-    while kill is True:
+    global redInput
+    while kill != True and steps <20:
+        greenLight()
+        time.sleep(random.randint(1,6))
+        redLight()
+        keyboard.start_recording
+        time.sleep(random.randint(1,6))
+        redInput = keyboard.stop_recording
+    if lightNum(True) and redInput(True):
         dead()
+    if steps >20:
+        print("win")
     else:
-        print("green light")
-        lightStatus = True
-        time.sleep(random.randint(1,6))
-        print("red light")
-        keyboard.start_recording()
-        lightStatus = False
-        time.sleep(random.randint(1,6))
-        kill = keyboard.stop_recording()
+        dead()
+
+
+def greenLight():
+    global lightNum
+    print("green light")
+    lightNum = False
+
+
+def redLight():
+    global lightNum
+    print("red light")
+    lightNum = True
+
 
 def squidGame():
-    global run
-    global char
     global steps
-    steps = 0
+    global lightNum
     while steps <20:
-        run = ''.join(random.choice(string.ascii_letters) for i in range (random.randint(1,6)))
+        run = ''.join(random.choice(string.ascii_letters) for i in range (random.randint(1,2)))
         print(run)
         char = input()
         if run == char:
@@ -53,16 +63,10 @@ def squidGame():
         else:
             dead() #fall
 
-def dead():
-    print("KILLED")
-    print(steps)
 
-
-thread1 = threading.Thread(target=lightChange)
+# starts both the light change and word game
+thread1 = threading.Thread(target=squidGame)
 thread1.start()
 
-thread2 = threading.Thread(target=squidGame)
+thread2 = threading.Thread(target=lightChange)
 thread2.start()
-
-if kill is True:
-    dead()

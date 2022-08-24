@@ -2,9 +2,97 @@ red light
 wjfijwoijfaowiajfowiajfwoa (finishing line)
 user input
 
+
+red light does allow input but you die
+green light allows you to type what you see
+
+
 while steps = <20 RLGL
 else = winner!
 if input on redlight = kill (restart)
 
-red light does allow input but you die
-green light allows you to type what you see
+LINE_CLEAR = '\x1b[2K' # <-- ANSI sequence to clear that line
+PREVLINE = '\033[F' # this should go to the start of the previous line
+
+
+#declares lightcolour globally, plus 1 to make it change colour, timesleep makes it wait a random amount of time RLGL produces redlight or greenlight response
+def lightprocess():
+    global lightcolour
+    lightcolour += 1
+    time.sleep(random.randint(1,5))
+    RLGL()
+
+
+#if the lightcolour is even print red light, if not then print green
+def RLGL():
+    if (lightcolour % 2) == 0: 
+        print(PREVLINE, LINE_CLEAR + "red light", end='\n')
+        lightprocess()
+    else:
+        print(PREVLINE, LINE_CLEAR + "green light", end='\n')
+        lightprocess()
+
+RLGL()
+
+---------------
+random string
+
+>>> import string
+>>> string.ascii_letters
+'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+>>> import random
+>>> random.choice(string.ascii_letters)
+---------------
+
+        Rtext = ""
+        print(Rtext)
+        text = input("enter: ")
+        Rtext = input("enter: ")
+
+Question 2: Restrict to certain length
+
+As Tim mentioned correctly, you can do this by adapting the regular expression in the first example to only allow a certain number of letters. You can also manually check the length like this:
+
+input_str = raw_input("Please provide some info: ")
+if len(input_str) > 15:
+print "Error! Only 15 characters allowed!"
+sys.exit()
+
+
+-------------------
+
+import keyboard  # using module keyboard
+while True:  # making a loop
+    try:  # used try so that if user pressed other than the given key error will not be shown
+        if keyboard.is_pressed('q'):  # if key 'q' is pressed 
+            print('You Pressed A Key!')
+            break  # finishing the loop
+    except:
+        break  # if user pressed a key other than the given key the loop will break
+
+--------------------
+
+
+
+
+while steps <20:
+    if char[0] == run[0]:
+        steps += 1
+        print(steps)
+    if char[1] == run[1]:
+        steps += 1
+        print(steps)
+    if char[2] == run[2]:
+        steps += 1
+        print(steps)
+    if char[3] == run[3]:
+        steps += 1
+        print(steps)
+    if char[4] == run[4]:
+        steps += 1
+        print(steps)
+    if char[5] == run[5]:
+        steps += 1
+        print(steps)
+    else:
+        died()
