@@ -2,6 +2,9 @@
 #https://stackoverflow.com/questions/18773474/simple-way-to-run-two-while-loops-at-the-same-time-using-threading
 # threading info https://www.pythontutorial.net/python-concurrency/python-threading/ 
 
+# when light change happens it needs to flush the char input
+#while loop so that when a user guesses a step right on a greenlight it desont wait for a red light
+
 
 import threading
 import time
@@ -11,12 +14,9 @@ import keyboard
 import sys
 
 
-steps = int()
-kill = (False)
-lightNum = (False)
-
-
 def dead():
+   # thread1.join
+   # thread2.join
     print("KILLED")
     sys.exit()
 
@@ -38,35 +38,47 @@ def lightChange():
         dead()
 
 
+
 def greenLight():
     global lightNum
-    print("green light")
+    global steps
     lightNum = False
+    print("green light")
+    global run
+    run = ''.join(random.choice(string.ascii_letters) for i in range (random.randint(1,2)))
+    print(run)
+    char = input()
+    if run == char:
+        steps += 1
+    else:
+        dead() #fall
 
 
 def redLight():
     global lightNum
-    print("red light")
     lightNum = True
+    print("red light  ")
 
 
-def squidGame():
-    global steps
-    global lightNum
-    while steps <20:
-        run = ''.join(random.choice(string.ascii_letters) for i in range (random.randint(1,2)))
-        print(run)
-        char = input()
-        if run == char:
-            steps += 1
-            print(steps)
-        else:
-            dead() #fall
+       
 
 
-# starts both the light change and word game
-thread1 = threading.Thread(target=squidGame)
-thread1.start()
+#thread1 = threading.Thread(target=squidGame)
+#thread2 = threading.Thread(target=lightChange)
+steps = int()
+kill = (False)
+lightNum = (False)
 
-thread2 = threading.Thread(target=lightChange)
-thread2.start()
+
+#curser control
+lineFlush = '\r\033[K' # flushes previous print
+lineClear = '\x1b[2K' # <-- ANSI sequence to clear that line
+linePrev = '\033[F' # this should go to the start of the previous line
+lineUp = '\033[1A' # up a line
+
+
+#thread1.start()
+#time.sleep(1)
+#thread2.start()
+
+lightChange()
